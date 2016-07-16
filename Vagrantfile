@@ -20,6 +20,19 @@ Vagrant.configure("2") do |config|
     # Jenkins
     main.vm.network :forwarded_port, guest: 8080, host: 8080
 
+    config.vm.provision "chef_zero" do |chef|
+      chef.install = false
+      chef.cookbooks_path = "chef/cookbooks"
+      chef.data_bags_path = "chef/data_bags"
+      chef.nodes_path = "chef/nodes"
+      chef.roles_path = "chef/roles"
+
+      chef.add_recipe "base"
+      chef.add_recipe "docker"
+    end
+
+    main.vm.provision "shell", path: "shell/setup-jenkins.sh"
+
   end
 
 end
