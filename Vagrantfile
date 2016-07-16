@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.box = "bento/ubuntu-14.04"
+  config.omnibus.chef_version = "12.12.15"
 
   config.vm.define "main" do |main|
     main.vm.provider "virtualbox" do |main_vb|
